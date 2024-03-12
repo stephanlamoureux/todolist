@@ -12,6 +12,18 @@ Before beginning, the following dependencies must be installed:
 - [Boto3](https://pypi.org/project/boto3/)
 - [Botocore](https://pypi.org/project/botocore/)
 
+## Deployment Diagram
+
+This diagram visualizes the deployment process of the Flask To-Do List application, showcasing the sequential steps from AWS CLI configuration to the app launch. It includes the roles of Terraform for infrastructure provisioning and Ansible for configuration management, alongside the utilization of AWS services like EC2 and S3, with MySQL as the backend database. This two step deployment process is later combined using CI/CD.
+
+![Deployment diagram](./images/diagram.png)
+
+## Network Diagram
+
+This visualizes the flow of traffic on AWS starting with the user accessing the frontend through an S3 bucket, and the layers the backend traffic goes through to reach the server and database.
+
+![AWS Diagram](./images/todolist.png)
+
 ## AWS CLI Configuration
 
 Connect the AWS CLI to AWS using the `aws configure` command.

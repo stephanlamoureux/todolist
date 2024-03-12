@@ -1,0 +1,29 @@
+@startuml Flask To-Do List App Deployment on AWS
+!theme toy
+!pragma layout smetana
+
+actor Developer
+participant "AWS CLI\nConfiguration" as AWSCLI
+participant "Terraform\nInitialization" as TerraformInit
+participant "Terraform\nValidation" as TerraformValidate
+participant "Terraform\nExecution Plan" as TerraformPlan
+participant "Terraform Apply" as TerraformApply
+participant "Ansible Vault\n(secret_vars.yaml)" as AnsibleVault
+participant "Ansible Playbook\n(main.yaml)" as AnsiblePlaybook
+database "MySQL Database\non RDS" as MySQLDB
+participant "EC2 Instances" as EC2
+participant "S3 Bucket" as S3
+
+Developer -> AWSCLI : Configures AWS CLI
+AWSCLI -> TerraformInit : Initializes Terraform
+TerraformInit -> TerraformValidate : Validates Configuration
+TerraformValidate -> TerraformPlan : Generates Execution Plan
+TerraformPlan -> TerraformApply : Applies Changes on AWS
+TerraformApply -> MySQLDB : Provisions MySQL Database on RDS
+TerraformApply -> EC2 : Deploys EC2 Instances
+Developer -> AnsibleVault : Creates Ansible Secrets
+AnsibleVault -> AnsiblePlaybook : Runs Playbook with Secrets
+AnsiblePlaybook -> EC2 : Configures and Deploys Flask App
+EC2 -> S3 : Static Files Served from S3 Bucket
+
+@enduml
